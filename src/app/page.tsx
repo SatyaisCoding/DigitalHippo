@@ -33,7 +33,7 @@ export default function Home() {
         <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
           <h1 className='text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl'>
             Your marketplace for high-quality{' '}
-            <span className='text-orange-500'>
+            <span className='text-blue-600'>
               Digital  Assets
             </span>
              .
