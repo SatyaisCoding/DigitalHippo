@@ -12,6 +12,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
+import { trpc } from '@/trpc/client';
 
 import {
   AuthCredentialsValidator,
@@ -53,12 +54,12 @@ const Page = () => {
   //         'Something went wrong. Please try again.'
   //       )
   //     },
-  //     onSuccess: ({ sentToEmail }) => {
-  //       toast.success(
-  //         `Verification email sent to ${sentToEmail}.`
-  //       )
-  //       router.push('/verify-email?to=' + sentToEmail)
-  //     },
+  //     // onSuccess: ({ sentToEmail }) => {
+  //     //   toast.success(
+  //     //     `Verification email sent to ${sentToEmail}.`
+  //     //   )
+  //     //   router.push('/verify-email?to=' + sentToEmail)
+  //     // },
   //   })
 
   // const onSubmit = ({
