@@ -5,21 +5,20 @@ import {
   Button,
   buttonVariants,
 } from '@/components/ui/button'
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { cn } from '@/lib/utils'
-import { zodResolver } from '@hookform/resolvers/zod';
+import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
-import { trpc } from '@/trpc/client';
-
 import {
   AuthCredentialsValidator,
   TAuthCredentialsValidator,
-} from '@/lib/validators/account-credentials-validator';
+} from '@/lib/validators/account-credentials-validator'
+import { trpc } from '@/trpc/client'
 import { toast } from 'sonner'
-import { ZodError } from 'zod';
+import { ZodError } from 'zod'
 import { useRouter } from 'next/navigation'
 
 const Page = () => {
@@ -33,41 +32,41 @@ const Page = () => {
 
   const router = useRouter()
 
-  // const { mutate, isLoading } =
-  //   trpc.auth.createPayloadUser.useMutation({
-  //     onError: (err) => {
-  //       if (err.data?.code === 'CONFLICT') {
-  //         toast.error(
-  //           'This email is already in use. Sign in instead?'
-  //         )
+  const { mutate} =
+    trpc.auth.createPayloadUser.useMutation({
+      onError: (err) => {
+        if (err.data?.code === 'CONFLICT') {
+          toast.error(
+            'This email is already in use. Sign in instead?'
+          )
 
-  //         return
-  //       }
+          return
+        }
 
-  //       if (err instanceof ZodError) {
-  //         toast.error(err.issues[0].message)
+        if (err instanceof ZodError) {
+          toast.error(err.issues[0].message)
 
-  //         return
-  //       }
+          return
+        }
 
-  //       toast.error(
-  //         'Something went wrong. Please try again.'
-  //       )
-  //     },
-  //     // onSuccess: ({ sentToEmail }) => {
-  //     //   toast.success(
-  //     //     `Verification email sent to ${sentToEmail}.`
-  //     //   )
-  //     //   router.push('/verify-email?to=' + sentToEmail)
-  //     // },
-  //   })
+        toast.error(
+          'Something went wrong. Please try again.'
+        )
+      },
+      onSuccess: ({ sentToEmail }) => {
+        toast.success(
+          `Verification email sent to ${sentToEmail}.`
+        )
+        router.push('/verify-email?to=' + sentToEmail)
+      },
+    })
 
-  // const onSubmit = ({
-  //   email,
-  //   password,
-  // }: TAuthCredentialsValidator) => {
-  //   mutate({ email, password })
-  // }
+  const onSubmit = ({
+    email,
+    password,
+  }: TAuthCredentialsValidator) => {
+    mutate({ email, password })
+  }
 
   return (
     <>
@@ -91,7 +90,7 @@ const Page = () => {
           </div>
 
           <div className='grid gap-6'>
-            <form >
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className='grid gap-2'>
                 <div className='grid gap-1 py-2'>
                   <Label htmlFor='email'>Email</Label>
